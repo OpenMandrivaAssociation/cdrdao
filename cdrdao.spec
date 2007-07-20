@@ -7,7 +7,7 @@
 %define distsuffix plf
 %endif
 
-Summary:	Cdrdao - Write audio CD-Rs in disk-at-once mode
+Summary:	Cdrdao - Write CDs in disk-at-once mode
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -24,7 +24,7 @@ BuildRequires:	ImageMagick
 BuildRequires: desktop-file-utils
 
 %description
-Writes audio CD-Rs in disc-at-once (DAO) mode allowing
+Writes CDs in disc-at-once (DAO) mode allowing
 control over pre-gaps (length down to 0, nonzero audio
 data) and sub-channel information like ISRC codes. All
 data that is written to the disc must be specified with
