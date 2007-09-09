@@ -96,7 +96,6 @@ convert -scale 32 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps
 install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gcdmaster.png
  
 %post gcdmaster
-update-mime-database %{_datadir}/mime > /dev/null
 %{update_menus}
 %{update_icon_cache hicolor}
 
