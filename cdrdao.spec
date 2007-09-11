@@ -15,6 +15,9 @@ License:	GPLv2+
 Group:		Archiving/Cd burning
 URL:		http://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
+# Fixes use of old sigc++ API breaking compilation. Fix discovered
+# by Pixel - AdamW 2007/09
+Patch0:		cdrdao-1.2.2-sigc.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libvorbis-devel
 BuildRequires:	libmad-devel
@@ -67,6 +70,7 @@ This package is in PLF as it violates some patents for MP3 encoding.
 
 %prep
 %setup -q
+%patch0 -p1 -b .sigc
 
 %build
 export CXXFLAGS="%optflags -DENABLE_NLS"
@@ -89,7 +93,7 @@ desktop-file-install --vendor="" \
   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
   
 # icon
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}apps
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
 convert -scale 16 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/gcdmaster.png
 convert -scale 32 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/gcdmaster.png
 install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gcdmaster.png
