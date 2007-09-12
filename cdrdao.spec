@@ -2,7 +2,7 @@
 %define version 1.2.2
 %define build_plf 0
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%define release %mkrel 5
+%define release %mkrel 6
 %if %build_plf
 %define distsuffix plf
 %endif
@@ -30,6 +30,10 @@ Writes CDs in disc-at-once (DAO) mode allowing control over pre-gaps
 (length down to 0, nonzero audio data) and sub-channel information
 like ISRC codes. All data that is written to the disc must be
 specified with a text file. Audio data may be in WAVE or raw format.
+%if %build_plf
+
+This package is in PLF as it violates some patents for MP3 encoding.
+%endif
 
 %package	gcdmaster
 Summary:	Graphical front end to cdrdao for creating audio CDs
