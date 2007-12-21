@@ -18,6 +18,7 @@ Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 # Fixes use of old sigc++ API breaking compilation. Fix discovered
 # by Pixel - AdamW 2007/09
 Patch0:		cdrdao-1.2.2-sigc.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libvorbis-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libao-devel
