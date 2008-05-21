@@ -2,7 +2,7 @@
 %define version 1.2.2
 %define build_plf 0
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%define release %mkrel 6
+%define release %mkrel 7
 %if %build_plf
 %define distsuffix plf
 %endif
@@ -18,12 +18,17 @@ Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 # Fixes use of old sigc++ API breaking compilation. Fix discovered
 # by Pixel - AdamW 2007/09
 Patch0:		cdrdao-1.2.2-sigc.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Patch1:		mkisofs-changelog.patch 
+Patch2:		cdrdao-1.2.2-gcc43.patch
+Patch9:		cdrdao-1.1.7-endianness.patch
+Patch23:	cdrtools-2.01a27-silly-warnings.patch
+Patch30:	cdrtools-2.0-O_EXCL.patch
 BuildRequires:	libvorbis-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libao-devel
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	desktop-file-utils
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Writes CDs in disc-at-once (DAO) mode allowing control over pre-gaps
@@ -73,8 +78,14 @@ This package is in PLF as it violates some patents for MP3 encoding.
 %endif
 
 %prep
+
 %setup -q
 %patch0 -p1 -b .sigc
+%patch1 -p1 -b .changelog
+%patch2 -p1 -b .gcc43
+%patch9 -p1 -b .endian
+%patch23 -p1 -b .silly
+%patch30 -p1 -b .excl
 
 %build
 export CXXFLAGS="%optflags -DENABLE_NLS"
