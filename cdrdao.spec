@@ -113,13 +113,17 @@ convert -scale 16 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps
 convert -scale 32 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/gcdmaster.png
 install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gcdmaster.png
  
+%if %mdkversion < 200900
 %post gcdmaster
 %{update_menus}
 %{update_icon_cache hicolor}
+%endif
 
+%if %mdkversion < 200900
 %postun gcdmaster
 %{clean_menus}
 %{clean_icon_cache hicolor}
+%endif
 
 %clean
 rm -rf %{buildroot}
