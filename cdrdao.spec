@@ -21,6 +21,7 @@ Patch0:		cdrdao-1.2.2-sigc.patch
 Patch1:		mkisofs-changelog.patch 
 Patch2:		cdrdao-1.2.2-gcc43.patch
 Patch9:		cdrdao-1.1.7-endianness.patch
+Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
 Patch23:	cdrtools-2.01a27-silly-warnings.patch
 Patch30:	cdrtools-2.0-O_EXCL.patch
 BuildRequires:	libvorbis-devel
@@ -78,12 +79,12 @@ This package is in PLF as it violates some patents for MP3 encoding.
 %endif
 
 %prep
-
 %setup -q
 %patch0 -p1 -b .sigc
 %patch1 -p1 -b .changelog
 %patch2 -p1 -b .gcc43
 %patch9 -p1 -b .endian
+%patch10 -p0 -b .str
 %patch23 -p1 -b .silly
 %patch30 -p1 -b .excl
 
