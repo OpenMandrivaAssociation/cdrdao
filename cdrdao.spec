@@ -1,8 +1,10 @@
 %define	name	cdrdao
-%define version 1.2.2
+%define version 1.2.3
+%define prerel rc2
 %define build_plf 0
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%define release %mkrel 8
+%define release %mkrel 0.%prerel.1
+%define fname %name-%version%prerel
 %if %build_plf
 %define distsuffix plf
 %endif
@@ -14,16 +16,12 @@ Release:	%{release}
 License:	GPLv2+
 Group:		Archiving/Cd burning
 URL:		http://cdrdao.sourceforge.net/
-Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
-# Fixes use of old sigc++ API breaking compilation. Fix discovered
-# by Pixel - AdamW 2007/09
-Patch0:		cdrdao-1.2.2-sigc.patch
+Source0:	http://prdownloads.sourceforge.net/cdrdao/%{fname}.tar.bz2
 Patch1:		mkisofs-changelog.patch 
-Patch2:		cdrdao-1.2.2-gcc43.patch
-Patch9:		cdrdao-1.1.7-endianness.patch
+Patch2:		cdrdao-1.2.2-gcc44.patch
+#gw from Fedora: fix version printing needed by k3b
+Patch3:		cdrdao-1.2.3-version.patch
 Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
-Patch23:	cdrtools-2.01a27-silly-warnings.patch
-Patch30:	cdrtools-2.0-O_EXCL.patch
 BuildRequires:	libvorbis-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libao-devel
@@ -79,14 +77,11 @@ This package is in PLF as it violates some patents for MP3 encoding.
 %endif
 
 %prep
-%setup -q
-%patch0 -p1 -b .sigc
+%setup -q -n %fname
 %patch1 -p1 -b .changelog
-%patch2 -p1 -b .gcc43
-%patch9 -p1 -b .endian
+%patch2 -p1 -b .gcc44
+%patch3 -p1
 %patch10 -p0 -b .str
-%patch23 -p1 -b .silly
-%patch30 -p1 -b .excl
 
 %build
 export CXXFLAGS="%optflags -DENABLE_NLS"
@@ -114,17 +109,20 @@ convert -scale 16 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps
 convert -scale 32 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/gcdmaster.png
 install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gcdmaster.png
  
+%define schemas gcdmaster
 %if %mdkversion < 200900
 %post gcdmaster
+%post_install_gconf_schemas %schemas
 %{update_menus}
 %{update_icon_cache hicolor}
-%endif
 
-%if %mdkversion < 200900
 %postun gcdmaster
 %{clean_menus}
 %{clean_icon_cache hicolor}
 %endif
+
+%preun gcdmaster
+%preun_uninstall_gconf_schemas %schemas
 
 %clean
 rm -rf %{buildroot}
@@ -141,6 +139,7 @@ rm -rf %{buildroot}
 
 %files	gcdmaster
 %defattr(-,root,root)
+%_sysconfdir/gconf/schemas/gcdmaster.schemas
 %{_bindir}/gcdmaster
 %{_datadir}/applications/gcdmaster.desktop
 %{_datadir}/application-registry/gcdmaster.applications
