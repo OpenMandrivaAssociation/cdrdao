@@ -1,10 +1,9 @@
 %define	name	cdrdao
 %define version 1.2.3
-%define prerel rc2
 %define build_plf 0
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%define release %mkrel 0.%prerel.1
-%define fname %name-%version%prerel
+%define release %mkrel 1
+%define fname %name-%version
 %if %build_plf
 %define distsuffix plf
 %endif
@@ -18,7 +17,6 @@ Group:		Archiving/Cd burning
 URL:		http://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{fname}.tar.bz2
 Patch1:		mkisofs-changelog.patch 
-Patch2:		cdrdao-1.2.2-gcc44.patch
 #gw from Fedora: fix version printing needed by k3b
 Patch3:		cdrdao-1.2.3-version.patch
 Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
@@ -79,7 +77,6 @@ This package is in PLF as it violates some patents for MP3 encoding.
 %prep
 %setup -q -n %fname
 %patch1 -p1 -b .changelog
-%patch2 -p1 -b .gcc44
 %patch3 -p1
 %patch10 -p0 -b .str
 
