@@ -2,7 +2,7 @@
 %define version 1.2.3
 %define build_plf 0
 %{?_with_plf: %{expand: %%global build_plf 1}}
-%define release %mkrel 1
+%define release %mkrel 2
 %define fname %name-%version
 %if %build_plf
 %define distsuffix plf
