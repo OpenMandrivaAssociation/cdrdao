@@ -20,6 +20,7 @@ Patch1:		mkisofs-changelog.patch
 #gw from Fedora: fix version printing needed by k3b
 Patch3:		cdrdao-1.2.3-version.patch
 Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
+Patch11:	cdrdao-1.2.3-stat.patch
 BuildRequires:	libvorbis-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libao-devel
@@ -79,6 +80,7 @@ This package is in PLF as it violates some patents for MP3 encoding.
 %patch1 -p1 -b .changelog
 %patch3 -p1
 %patch10 -p0 -b .str
+%patch11 -p1 -b .stat
 
 %build
 export CXXFLAGS="%optflags -DENABLE_NLS"
