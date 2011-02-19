@@ -6,12 +6,16 @@
 %define fname %name-%version
 %if %build_plf
 %define distsuffix plf
+%if %mdvver >= 201100
+# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
+%define extrarelsuffix plf
+%endif
 %endif
 
 Summary:	Cdrdao - Write CDs in disk-at-once mode
 Name:		%{name}
 Version:	%{version}
-Release:	%{release}
+Release:	%{release}%{?extrarelsuffix}
 License:	GPLv2+
 Group:		Archiving/Cd burning
 URL:		http://cdrdao.sourceforge.net/
