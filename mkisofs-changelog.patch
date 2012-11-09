@@ -1,0 +1,9 @@
+--- cdrtools-1.10/mkisofs/ChangeLog.changelog	Sat Apr  7 17:34:04 2001
++++ cdrtools-1.10/mkisofs/ChangeLog	Thu Apr 19 01:02:24 2001
+@@ -0,0 +1,6 @@
++**************** Packager's Note ******************
++Tue Aug  8 2000 Crutcher Dunnavant <crutcher@redhat.com>
++	* graft-points are NO LONGER assuemd,
++	  you must specify '-graft-points'
++
++
