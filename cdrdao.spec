@@ -17,18 +17,19 @@ Release:	10%{?extrarelsuffix}
 Summary:	Cdrdao - Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
-URL:		http://cdrdao.sourceforge.net/
+Url:		http://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
 #gw from Fedora: fix version printing needed by k3b
 Patch3:		cdrdao-1.2.3-version.patch
 Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
 Patch11:	cdrdao-1.2.3-stat.patch
-BuildRequires:	pkgconfig(vorbis)
-BuildRequires:	pkgconfig(mad)
-BuildRequires:	pkgconfig(ao)
-BuildRequires:	imagemagick
+
 BuildRequires:	desktop-file-utils
+BuildRequires:	imagemagick
+BuildRequires:	pkgconfig(ao)
+BuildRequires:	pkgconfig(mad)
+BuildRequires:	pkgconfig(vorbis)
 
 %description
 Writes CDs in disc-at-once (DAO) mode allowing control over pre-gaps
@@ -43,9 +44,9 @@ This package is in restricted as it violates some patents for MP3 encoding.
 %package	gcdmaster
 Summary:	Graphical front end to cdrdao for creating audio CDs
 Group:		Archiving/Cd burning
-BuildRequires:	pkgconfig(libgnomeuimm-2.6)
 Provides:	cdrdao-xdao
 Provides:	cdrdao-xcdrdao
+BuildRequires:	pkgconfig(libgnomeuimm-2.6)
 Requires:	%{name} = %{version}
 
 %description gcdmaster
@@ -59,7 +60,7 @@ the audio data.
 %package	toc2mp3
 Summary:	Command line MP3 encoder front end to cdrdao
 Group:		Sound
-BuildRequires:	liblame-devel
+BuildRequires:	lame-devel
 Requires:	%{name} = %{version}
 
 %description	toc2mp3
@@ -90,13 +91,14 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 # Menu
 perl -pi -e 's,gcdmaster.png,gcdmaster,g' %{buildroot}%{_datadir}/applications/*
 desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --remove-category="X-Fedora" \
-  --remove-key="Encoding" \
-  --add-category="GTK" \
-  --add-category="AudioVideo" \
-  --add-category="DiscBurning" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
+	--remove-category="Application" \
+	--remove-category="X-Fedora" \
+	--remove-key="Encoding" \
+	--add-category="GTK" \
+	--add-category="AudioVideo" \
+	--add-category="DiscBurning" \
+	--dir %{buildroot}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/*
 
 # icon
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
