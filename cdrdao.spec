@@ -14,7 +14,7 @@
 Name:		cdrdao
 Version:	1.2.3
 Release:	10%{?extrarelsuffix}
-Summary:	Cdrdao - Write CDs in disk-at-once mode
+Summary:	- Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
 Url:		http://cdrdao.sourceforge.net/
