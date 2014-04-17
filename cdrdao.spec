@@ -13,7 +13,7 @@
 
 Name:		cdrdao
 Version:	1.2.3
-Release:	10%{?extrarelsuffix}
+Release:	11%{?extrarelsuffix}
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
@@ -24,6 +24,8 @@ Patch1:		mkisofs-changelog.patch
 Patch3:		cdrdao-1.2.3-version.patch
 Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
 Patch11:	cdrdao-1.2.3-stat.patch
+
+Obsoletes: cdrdao-gcdmaster
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
@@ -40,21 +42,6 @@ specified with a text file. Audio data may be in WAVE or raw format.
 %if %{build_plf}
 This package is in restricted as it violates some patents for MP3 encoding.
 %endif
-
-%package	gcdmaster
-Summary:	Graphical front end to cdrdao for creating audio CDs
-Group:		Archiving/Cd burning
-Provides:	cdrdao-xdao
-Provides:	cdrdao-xcdrdao
-BuildRequires:	pkgconfig(libgnomeuimm-2.6)
-Requires:	%{name} = %{version}
-
-%description gcdmaster
-gcdmaster allows the creation of toc-files for cdrdao and can control
-the recording process. Its main application is the creation of audio
-CDs from one or more audio files. It supports PQ-channel editing,
-entry of meta data like ISRC codes/CD-TEXT and non-destructive cut of
-the audio data.
 
 %if %{build_plf}
 %package	toc2mp3
@@ -88,24 +75,6 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %install
 %makeinstall
 
-# Menu
-perl -pi -e 's,gcdmaster.png,gcdmaster,g' %{buildroot}%{_datadir}/applications/*
-desktop-file-install --vendor="" \
-	--remove-category="Application" \
-	--remove-category="X-Fedora" \
-	--remove-key="Encoding" \
-	--add-category="GTK" \
-	--add-category="AudioVideo" \
-	--add-category="DiscBurning" \
-	--dir %{buildroot}%{_datadir}/applications \
-	%{buildroot}%{_datadir}/applications/*
-
-# icon
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
-convert -scale 16 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/gcdmaster.png
-convert -scale 32 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/gcdmaster.png
-install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gcdmaster.png
-
 %files
 %doc README README.PlexDAE
 %doc %{_mandir}/man1/*
@@ -114,18 +83,6 @@ install -m 644 xdao/gcdmaster.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/gc
 %{_bindir}/toc2cddb
 %{_bindir}/cue2toc
 %{_datadir}/%{name}
-
-%files gcdmaster
-%{_sysconfdir}/gconf/schemas/gcdmaster.schemas
-%{_bindir}/gcdmaster
-%{_datadir}/applications/gcdmaster.desktop
-%{_datadir}/application-registry/gcdmaster.applications
-%{_datadir}/gcdmaster
-%{_datadir}/mime-info/gcdmaster.keys
-%{_datadir}/mime-info/gcdmaster.mime
-%{_datadir}/mime/packages/gcdmaster.xml
-%{_datadir}/pixmaps/*
-%{_iconsdir}/hicolor/*/apps/*
 
 %if %{build_plf}
 %files toc2mp3
