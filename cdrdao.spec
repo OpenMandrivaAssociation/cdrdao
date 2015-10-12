@@ -1,5 +1,8 @@
 %{?_with_plf: %{expand: %%global build_plf 1}}
 
+%define _disable_rebuild_configure 1
+%define _disable_lto 1
+
 #####################
 # Hardcode PLF build
 %define build_plf 0
