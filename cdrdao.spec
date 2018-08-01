@@ -1,3 +1,5 @@
+%global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
+
 %{?_with_plf: %{expand: %%global build_plf 1}}
 
 %define _disable_rebuild_configure 1
@@ -16,7 +18,7 @@
 
 Name:		cdrdao
 Version:	1.2.3
-Release:	11%{?extrarelsuffix}
+Release:	12%{?extrarelsuffix}
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
@@ -72,7 +74,7 @@ This package is in restricted as it violates some patents for MP3 encoding.
 
 %build
 export CXXFLAGS="%{optflags} -DENABLE_NLS"
-%configure2_5x
+%configure
 %make
 
 %install
