@@ -1,0 +1,40 @@
+diff -up cdrdao-1.2.3/dao/Makefile.am.p2~ cdrdao-1.2.3/dao/Makefile.am
+--- cdrdao-1.2.3/dao/Makefile.am.p2~	2009-02-22 11:47:01.000000000 +0100
++++ cdrdao-1.2.3/dao/Makefile.am	2019-02-13 02:36:56.332278959 +0100
+@@ -83,7 +83,7 @@ cdrdao_LDADD =						\
+ 	./libdao.a					\
+ 	$(top_builddir)/paranoia/libcdda_paranoia.a	\
+ 	$(top_builddir)/trackdb/libtrackdb.a		\
+-	@thread_libs@					\
++	-lpthread @thread_libs@					\
+ 	@scsilib_libs@
+ 
+ if COND_MP3
+diff -up cdrdao-1.2.3/dao/Makefile.in.p2~ cdrdao-1.2.3/dao/Makefile.in
+--- cdrdao-1.2.3/dao/Makefile.in.p2~	2019-02-13 02:36:56.332278959 +0100
++++ cdrdao-1.2.3/dao/Makefile.in	2019-02-13 02:37:08.588458106 +0100
+@@ -321,7 +321,7 @@ libdao_a_DEPENDENCIES = \
+ 	@scsilib_objs@
+ 
+ cdrdao_LDADD = ./libdao.a $(top_builddir)/paranoia/libcdda_paranoia.a \
+-	$(top_builddir)/trackdb/libtrackdb.a @thread_libs@ \
++	$(top_builddir)/trackdb/libtrackdb.a -lpthread @thread_libs@ \
+ 	@scsilib_libs@ $(am__append_1) $(am__append_2) @AO_LIBS@
+ cdrdao_DEPENDENCIES = \
+ 	$(top_builddir)/paranoia/libcdda_paranoia.a	\
+diff -up cdrdao-1.2.3/utils/toc2mp3.cc.p2~ cdrdao-1.2.3/utils/toc2mp3.cc
+--- cdrdao-1.2.3/utils/toc2mp3.cc.p2~	2003-02-22 11:16:56.000000000 +0100
++++ cdrdao-1.2.3/utils/toc2mp3.cc	2019-02-13 02:36:56.332278959 +0100
+@@ -47,6 +47,12 @@ static int VERBOSE = 1;
+ static int CREATE_ALBUM_DIRECTORY = 0;
+ static std::string TARGET_DIRECTORY;
+ 
++// C&P from lame
++const int bitrate_table[3][16] = {
++     {0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, -1}, /* MPEG 2 */
++     {0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, -1}, /* MPEG 1 */
++     {0, 8, 16, 24, 32, 40, 48, 56, 64, -1, -1, -1, -1, -1, -1, -1}, /* MPEG 2.5 */
++};
+ 
+ void message_args(int level, int addNewLine, const char *fmt, va_list args)
+ {
