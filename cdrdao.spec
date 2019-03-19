@@ -1,11 +1,10 @@
 %global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
 
-%define _disable_rebuild_configure 1
-%define _disable_lto 1
+#define _disable_rebuild_configure 1
 
 Name:		cdrdao
-Version:	1.2.3
-Release:	13
+Version:	1.2.4
+Release:	1
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
@@ -15,8 +14,6 @@ Patch1:		mkisofs-changelog.patch
 Patch2:		cdrdao-1.2.3-buildfixes.patch
 #gw from Fedora: fix version printing needed by k3b
 Patch3:		cdrdao-1.2.3-version.patch
-Patch10:	cdrdao-1.2.2-fix-str-fmt.patch
-Patch11:	cdrdao-1.2.3-stat.patch
 
 Obsoletes: cdrdao-gcdmaster
 
@@ -48,12 +45,11 @@ tags and to construct the name of the MP3 files.
 This package is in restricted as it violates some patents for MP3 encoding.
 
 %prep
-%setup -q
-%patch1 -p1 -b .changelog
-%patch2 -p1 -b .p2~
-%patch3 -p1 -b .p3~
-%patch10 -p0 -b .str
-%patch11 -p1 -b .stat
+%autosetup -p1
+# Remove ancient copies of autoconf internal files
+rm -f scsilib/conf/*.m4
+# And a check for prehistoric stuff
+sed -i -e 's,^AM_GCONF,#AM_GCONF,' configure.ac
 
 %build
 export CXXFLAGS="%{optflags} -DENABLE_NLS"
@@ -61,7 +57,7 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %make
 
 %install
-%makeinstall
+%make_install
 
 %files
 %doc README README.PlexDAE
