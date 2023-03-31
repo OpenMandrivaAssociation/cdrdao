@@ -4,7 +4,7 @@
 
 Name:		cdrdao
 Version:	1.2.4
-Release:	1
+Release:	2
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
