@@ -52,7 +52,7 @@ sed -i -e 's,^AM_GCONF,#AM_GCONF,' configure.ac
 %build
 export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %configure
-%make
+%make_build
 
 %install
 %make_install
@@ -64,7 +64,18 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %{_bindir}/toc2cue
 %{_bindir}/toc2cddb
 %{_bindir}/cue2toc
+%{_bindir}/gcdmaster
 %{_datadir}/%{name}
+%{_datadir}/application-registry/gcdmaster.applications
+%{_datadir}/applications/gcdmaster.desktop
+%{_datadir}/gcdmaster/glade/Preferences.glade
+%{_datadir}/gcdmaster/glade/ProjectChooser.glade
+%{_datadir}/glib-2.0/schemas/org.gnome.gcdmaster.gschema.xml
+%{_datadir}/mime-info/gcdmaster.keys
+%{_datadir}/mime-info/gcdmaster.mime
+%{_datadir}/mime/packages/gcdmaster.xml
+%{_datadir}/pixmaps/gcdmaster-doc.png
+%{_datadir}/pixmaps/gcdmaster.png
 
 %files toc2mp3
 %{_bindir}/toc2mp3
