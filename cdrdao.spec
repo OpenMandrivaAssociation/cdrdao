@@ -13,7 +13,7 @@ Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
 #Patch2:		cdrdao-1.2.3-buildfixes.patch
 #gw from Fedora: fix version printing needed by k3b
-Patch3:		cdrdao-1.2.3-version.patch
+#Patch3:		cdrdao-1.2.3-version.patch
 
 Obsoletes: cdrdao-gcdmaster
 
