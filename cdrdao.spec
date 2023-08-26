@@ -3,17 +3,14 @@
 #define _disable_rebuild_configure 1
 
 Name:		cdrdao
-Version:	1.2.4
-Release:	2
+Version:	1.2.5
+Release:	1
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
 Url:		http://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
-Patch2:		cdrdao-1.2.3-buildfixes.patch
-#gw from Fedora: fix version printing needed by k3b
-Patch3:		cdrdao-1.2.3-version.patch
 
 Obsoletes: cdrdao-gcdmaster
 
@@ -22,6 +19,7 @@ BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(ao)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(vorbis)
+BuildRequires:  pkgconfig(gtkmm-3.0)
 
 %description
 Writes CDs in disc-at-once (DAO) mode allowing control over pre-gaps
@@ -54,7 +52,7 @@ sed -i -e 's,^AM_GCONF,#AM_GCONF,' configure.ac
 %build
 export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %configure
-%make
+%make_build
 
 %install
 %make_install
@@ -66,7 +64,18 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %{_bindir}/toc2cue
 %{_bindir}/toc2cddb
 %{_bindir}/cue2toc
+%{_bindir}/gcdmaster
 %{_datadir}/%{name}
+%{_datadir}/application-registry/gcdmaster.applications
+%{_datadir}/applications/gcdmaster.desktop
+%{_datadir}/gcdmaster/glade/Preferences.glade
+%{_datadir}/gcdmaster/glade/ProjectChooser.glade
+%{_datadir}/glib-2.0/schemas/org.gnome.gcdmaster.gschema.xml
+%{_datadir}/mime-info/gcdmaster.keys
+%{_datadir}/mime-info/gcdmaster.mime
+%{_datadir}/mime/packages/gcdmaster.xml
+%{_datadir}/pixmaps/gcdmaster-doc.png
+%{_datadir}/pixmaps/gcdmaster.png
 
 %files toc2mp3
 %{_bindir}/toc2mp3
