@@ -11,9 +11,6 @@ Group:		Archiving/Cd burning
 Url:		http://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
-#Patch2:		cdrdao-1.2.3-buildfixes.patch
-#gw from Fedora: fix version printing needed by k3b
-#Patch3:		cdrdao-1.2.3-version.patch
 
 Obsoletes: cdrdao-gcdmaster
 
@@ -22,6 +19,7 @@ BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(ao)
 BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(vorbis)
+BuildRequires:  pkgconfig(gtkmm-3.0)
 
 %description
 Writes CDs in disc-at-once (DAO) mode allowing control over pre-gaps
