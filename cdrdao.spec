@@ -8,7 +8,7 @@ Release:	1
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
 Group:		Archiving/Cd burning
-Url:		http://cdrdao.sourceforge.net/
+Url:		https://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
 
