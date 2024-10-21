@@ -12,8 +12,6 @@ Url:		https://cdrdao.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/cdrdao/%{name}-%{version}.tar.bz2
 Patch1:		mkisofs-changelog.patch
 
-Obsoletes: cdrdao-gcdmaster
-
 BuildRequires:	desktop-file-utils
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(ao)
@@ -42,6 +40,14 @@ tags and to construct the name of the MP3 files.
 
 This package is in restricted as it violates some patents for MP3 encoding.
 
+%package	gcdmaster
+Summary:	Graphical frontend for the cdrdao CD writing tool
+Group:		Sound
+Requires:	%{name} = %{EVRD}
+
+%description	gcdmaster
+Graphical frontend for the cdrdao CD writing tool
+
 %prep
 %autosetup -p1
 # Remove ancient copies of autoconf internal files
@@ -64,8 +70,10 @@ export CXXFLAGS="%{optflags} -DENABLE_NLS"
 %{_bindir}/toc2cue
 %{_bindir}/toc2cddb
 %{_bindir}/cue2toc
-%{_bindir}/gcdmaster
 %{_datadir}/%{name}
+
+%files gcdmaster
+%{_bindir}/gcdmaster
 %{_datadir}/application-registry/gcdmaster.applications
 %{_datadir}/applications/gcdmaster.desktop
 %{_datadir}/gcdmaster/glade/Preferences.glade
