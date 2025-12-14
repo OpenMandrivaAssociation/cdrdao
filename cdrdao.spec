@@ -3,7 +3,7 @@
 #define _disable_rebuild_configure 1
 
 Name:		cdrdao
-Version:	1.2.5
+Version:	1.2.6
 Release:	1
 Summary:	Write CDs in disk-at-once mode
 License:	GPLv2+
